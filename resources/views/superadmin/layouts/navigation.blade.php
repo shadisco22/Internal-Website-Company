@@ -23,7 +23,7 @@
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('superadmin.department')" :active="request()->routeIs('superadmin.department')">
-                        {{ __('Department') }}
+                        {{ __('Departments') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -28,10 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
         Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
+        Route::get('/employees/show', [EmployeeController::class, 'show'])->name('employee.show');
+        Route::put('/employees/store', [EmployeeController::class, 'store'])->name('employee.store');
 
         Route::get('/department', [DepartmentController::class, 'index'])->name('department');
         Route::put('/department/store', [DepartmentController::class, 'store'])->name('department.store');
-
     });
 });
 
