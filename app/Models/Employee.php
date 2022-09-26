@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Employee extends Model
+
+class Employee extends Authenticatable
 {
     use HasFactory;
     protected $fillable = ['person_id', 'dep_id', 'role', 'duties', 'salary', 'hire_date', 'retire_date', 'title', 'email', 'password'];
