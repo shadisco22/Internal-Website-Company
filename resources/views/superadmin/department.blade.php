@@ -5,13 +5,14 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <form class="w-full max-w-lg" action="{{ route('superadmin.department.store') }}" method="POST">
-                        @csrf
-                        @method('put')
+    <form class="form-horizontal" action="{{ route('superadmin.department.store') }}" method="POST">
+        @csrf
+        @method('put')
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 bg-white border-b border-gray-200">
+
                         <div class="mx-1 mb-1">
                             <div class="w-full md:w-1/2 px-2 mb-8 md:mb-2">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -39,11 +40,12 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -82,4 +84,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>
