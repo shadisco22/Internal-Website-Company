@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Person;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -14,7 +16,10 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::all();
+        $departments = Department::all();
+        $people = Person::all();
+        return view('superadmin.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
     }
 
     /**
