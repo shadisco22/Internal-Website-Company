@@ -15,6 +15,7 @@ use App\Http\Controllers\HomeController as HomeController;
 */
 
 
+
 Route::group(['middleware' => 'auth'], function () {
     Route::group([
         'perfix' => '/superadmin',
@@ -25,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     });
 });
+
 
 
 require __DIR__ . '/auth.php';
