@@ -16,6 +16,7 @@ use App\Http\Controllers\EmployeeController as EmployeeController;
 */
 
 
+
 Route::group(['middleware' => 'auth'], function () {
     Route::group([
         'perfix' => '/superadmin',
@@ -27,6 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
     });
 });
+
 
 
 require __DIR__ . '/auth.php';
