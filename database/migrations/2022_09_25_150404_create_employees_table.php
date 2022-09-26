@@ -17,9 +17,13 @@ return new class extends Migration
             $table->id();
             $table->foreignId('person_id');
             $table->foreignId('dep_id');
+            $table->string('title');
             $table->string('role');
             $table->string('duties');
             $table->string('salary');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamp('hire_date');
             $table->timestamp('retire_date')->nullable();
             $table->softDeletes();
