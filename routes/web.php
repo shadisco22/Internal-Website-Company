@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController as HomeController;
 
@@ -24,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
 
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+        Route::get('/department', [DepartmentController::class, 'index'])->name('department');
+        Route::put('/department/store', [DepartmentController::class, 'store'])->name('department.store');
     });
 });
 

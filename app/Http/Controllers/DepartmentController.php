@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 
+use function Psy\debug;
+
 class DepartmentController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        $departments=Department::all();
+        return view("superadmin.department",['departments'=>$departments]);
     }
 
     /**
@@ -35,7 +38,14 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $department= new Department();
+        $department->name = $request->name;
+        $department->description = $request->description;
+        $department->save();
+
+        $department= Department::all();
+        return redirect()->route('superadmin.department',['departments'=>$department]);
+
     }
 
     /**
