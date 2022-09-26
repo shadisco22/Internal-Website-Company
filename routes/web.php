@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController as HomeController;
+use App\Http\Controllers\EmployeeController as EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
 
         Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+        Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
     });
 });
 
