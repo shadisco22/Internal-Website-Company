@@ -19,6 +19,11 @@
                         {{ __('Departments') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.notification')" :active="request()->routeIs('admin.notification')">
+                        {{ __('Make Request') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
