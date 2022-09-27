@@ -6,9 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-use function PHPUnit\Framework\stringStartsWith;
-
-class IsSuperAdminMiddleware
+class IsAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -19,9 +17,11 @@ class IsSuperAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role != 'superadmin') {
+
+        if (!auth()->check() || auth()->user()->role != 'admin') {
             abort(403);
         }
+
         return $next($request);
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class EmployeeController extends Controller
@@ -22,7 +23,11 @@ class EmployeeController extends Controller
         $employees = Employee::all();
         $departments = Department::all();
         $people = Person::all();
-        return view('superadmin.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
+
+        if (Auth::user()->role == 'superadmin')
+            return view('superadmin.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
+        else if (Auth::user()->role == 'admin')
+            return view('admin.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
     }
 
     /**
@@ -80,7 +85,10 @@ class EmployeeController extends Controller
         $employees = Employee::all();
         $departments = Department::all();
         $people = Person::all();
-        return view('superadmin.employees_show', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
+        if (Auth::user()->role == 'superadmin')
+            return view('superadmin.employees_show', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
+        else if (Auth::user()->role == 'admin')
+            return view('admin.employees_show', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
     }
 
     /**
