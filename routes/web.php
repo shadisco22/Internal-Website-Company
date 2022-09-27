@@ -4,6 +4,7 @@ use App\Http\Controllers\DepartmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController as HomeController;
 use App\Http\Controllers\EmployeeController as EmployeeController;
+use App\Http\Controllers\NotificationController as NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('admin/department', [DepartmentController::class, 'index'])->name('department');
         Route::put('admin/department/store', [DepartmentController::class, 'store'])->name('department.store');
+
+        Route::get('admin/make_request', [NotificationController::class, 'index'])->name('notification');
+        Route::put('admin/make_request/store', [NotificationController::class, 'store'])->name('notification.store');
     });
 });
 

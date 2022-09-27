@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\request_notification_event;
+use App\Listeners\send_request_notification;
+use App\Notifications\request_notification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,6 +21,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        request_notification_event::class => [
+            send_request_notification::class,
+        ]
     ];
 
     /**

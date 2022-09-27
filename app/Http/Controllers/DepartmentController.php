@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use function Psy\debug;
 
@@ -16,8 +17,11 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments=Department::all();
-        return view("superadmin.department",['departments'=>$departments]);
+        $departments = Department::all();
+        if (Auth::user()->role == 'superadmin')
+            return view("superadmin.department", ['departments' => $departments]);
+        else
+            return view("admin.department", ['departments' => $departments]);
     }
 
     /**
@@ -38,14 +42,16 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        $department= new Department();
+        $department = new Department();
         $department->name = $request->name;
         $department->description = $request->description;
         $department->save();
 
-        $department= Department::all();
-        return redirect()->route('superadmin.department',['departments'=>$department]);
-
+        $department = Department::all();
+        if (Auth::user()->role == 'superadmin')
+            return redirect()->route('superadmin.department', ['departments' => $department]);
+        else
+            return redirect()->route('admin.department', ['departments' => $department]);
     }
 
     /**

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('sender_emp_id');
             $table->foreignId('receiver_emp_id')->nullable();
             $table->integer('receiver_dep_id')->nullable();
-            $table->boolean('seen');
+            $table->boolean('seen')->default(0);
             $table->string('request_id');
             $table->softDeletes();
             $table->timestamps();
