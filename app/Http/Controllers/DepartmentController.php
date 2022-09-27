@@ -18,10 +18,9 @@ class DepartmentController extends Controller
     public function index()
     {
         $departments = Department::all();
-        if (Auth::user()->role == 'superadmin')
-            return view("superadmin.department", ['departments' => $departments]);
-        else
-            return view("admin.department", ['departments' => $departments]);
+
+        $role = Auth::user()->role;
+        return view($role . ".department", ['departments' => $departments]);
     }
 
     /**
@@ -47,11 +46,8 @@ class DepartmentController extends Controller
         $department->description = $request->description;
         $department->save();
 
-        $department = Department::all();
-        if (Auth::user()->role == 'superadmin')
-            return redirect()->route('superadmin.department', ['departments' => $department]);
-        else
-            return redirect()->route('admin.department', ['departments' => $department]);
+        $role = Auth::user()->role;
+        return redirect()->route($role . '.department', ['departments' => $department]);
     }
 
     /**
