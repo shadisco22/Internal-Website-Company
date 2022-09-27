@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class AppLayout extends Component
@@ -13,6 +14,11 @@ class AppLayout extends Component
      */
     public function render()
     {
-        return view('superadmin.layouts.app');
+        if (Auth::user()->role == 'superadmin')
+            return view('superadmin.layouts.app');
+        else if (Auth::user()->role == 'admin')
+            return view('admin.layouts.app');
+        else
+            abort(403);
     }
 }

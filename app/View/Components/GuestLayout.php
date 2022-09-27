@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Auth;
+
 
 class GuestLayout extends Component
 {
@@ -13,6 +15,7 @@ class GuestLayout extends Component
      */
     public function render()
     {
-        return view('superadmin.layouts.guest');
+
+        return view('admin.layouts.guest');
     }
 }
