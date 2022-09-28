@@ -74,6 +74,8 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
 
         Route::get('manager/dashboard', [HomeController::class, 'index'])->name('dashboard');
+        Route::get('manager/notification_details/{id}', [NotificationController::class, 'show'])->name('notification.details');
+        Route::get('manager/notification_details/{id}/dismiss', [NotificationController::class, 'dismiss'])->name('notification.details.dismiss');
 
         Route::get('manager/make_request', [NotificationController::class, 'index'])->name('notification');
         Route::put('manager/make_request/store', [NotificationController::class, 'store'])->name('notification.store');

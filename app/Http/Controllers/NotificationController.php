@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use App\Models\Department;
+use App\Models\Employee;
+use App\Models\Person;
 use App\Models\Request as req;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,11 +69,40 @@ class NotificationController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Notification  $notification
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Notification $notification)
+    public function show($id)
     {
-        //
+        $emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+        $person_id = Employee::all()->where('id', '=', $emp_id)->value('person_id');
+        $fname = Person::all()->where('id', '=', $person_id)->value('fname');
+        $lname = Person::all()->where('id', '=', $person_id)->value('lname');
+        $job_title = Employee::all()->where('id', '=', $emp_id)->value('title');
+        $req_id = Notification::all()->where('id', '=', $id)->value('request_id');
+        $req = req::all()->where('id', '=', $req_id)->value('request');
+        $req_desc = req::all()->where('id', '=', $req_id)->value('description');
+        $req_quantity = req::all()->where('id', '=', $req_id)->value('quantity');
+        $created_at = Notification::all()->where('id', '=', $id)->value('created_at');
+        $role = Auth::user()->role;
+        return view($role . '.notification_details', [
+            'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
+            'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id
+        ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Notification  $notification
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function dismiss($id)
+    {
+        $noti = Notification::where('id', '=', $id)->update(['seen' => '1']);
+        $role = Auth::user()->role;
+        return redirect()->route($role . '.dashboard');
     }
 
     /**

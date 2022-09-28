@@ -15,6 +15,7 @@
                         <- Back </button>
                 </a>
             </p>
+        </div>
     </x-slot>
 
     <div class="py-12">
