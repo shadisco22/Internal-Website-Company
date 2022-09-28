@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController as HomeController;
 use App\Http\Controllers\EmployeeController as EmployeeController;
 use App\Http\Controllers\NotificationController as NotificationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
 
 /*
@@ -29,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('superadmin/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+        Route::get('superadmin/profile', [ProfileController::class, 'index'])->name('profile.index');
+
         Route::get('superadmin/employees', [EmployeeController::class, 'index'])->name('employee.index');
         Route::get('superadmin/employees/show', [EmployeeController::class, 'show'])->name('employee.show');
         Route::put('superadmin/employees/store', [EmployeeController::class, 'store'])->name('employee.store');
@@ -44,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
 
         Route::get('admin/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+        Route::get('admin/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('admin/employees', [EmployeeController::class, 'index'])->name('employee.index');
         Route::get('admin/employees/show', [EmployeeController::class, 'show'])->name('employee.show');
@@ -64,6 +69,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('employee/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+        Route::get('employee/profile', [ProfileController::class, 'index'])->name('profile.index');
+
         Route::get('employee/Request/index', [RequestController::class, 'index'])->name('dashboard.index');
         Route::get('employee/Request/show_request', [RequestController::class, 'show'])->name('dashboard.show');
 
@@ -76,6 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
         'middleware' => 'is_manager',
         'as'         => 'manager.',
     ], function () {
+
+        Route::get('manager/profile', [ProfileController::class, 'index'])->name('profile.index');
 
         Route::get('manager/dashboard', [HomeController::class, 'index'])->name('dashboard');
         Route::get('manager/notification_details/{id}', [NotificationController::class, 'show'])->name('notification.details');

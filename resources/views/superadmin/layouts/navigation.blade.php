@@ -57,7 +57,7 @@
                 </x-dropdown>
                 <!-- Logo -->
                 <div class="shrink-0 flex items-right">
-                    <a href="{{ route('superadmin.dashboard') }}">
+                    <a href="{{ route('superadmin.profile.index') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
