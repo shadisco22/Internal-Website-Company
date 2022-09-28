@@ -76,6 +76,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('employee/make_request', [NotificationController::class, 'index'])->name('notification');
         Route::put('employee/make_request/store', [NotificationController::class, 'store'])->name('notification.store');
+        Route::get('employee/notification_details/{id}', [NotificationController::class, 'show'])->name('notification.details');
+        Route::get('employee/notification_details/{id}/accept', [NotificationController::class, 'accept'])->name('notification.details.accept');
     });
 
     Route::group([
@@ -89,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('manager/dashboard', [HomeController::class, 'index'])->name('dashboard');
         Route::get('manager/notification_details/{id}', [NotificationController::class, 'show'])->name('notification.details');
         Route::get('manager/notification_details/{id}/dismiss', [NotificationController::class, 'dismiss'])->name('notification.details.dismiss');
+        Route::get('manager/notification_details/{id}/approve', [NotificationController::class, 'approve'])->name('notification.details.approve');
 
         Route::get('manager/Request/index', [RequestController::class, 'index'])->name('dashboard.index');
         Route::get('manager/Request/show_request', [RequestController::class, 'show'])->name('dashboard.show');

@@ -42,24 +42,45 @@ class NotificationController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->role == 'employee') {
+            $manager_id = Employee::all()->where('dep_id', '=', Auth::user()->dep_id)
+                ->where('role', '=', 'manager')
+                ->value("id");
+            $noti = new Notification();
+            $noti->sender_emp_id = Auth::user()->id;
+            $noti->receiver_emp_id = $manager_id;
 
-        $dep_id = Department::all()->where('name', '=', 'purchasing')->value('id');
+            $r = new req();
+            $r->emp_id = Auth::user()->id;
+            $r->request = $request->request_name;
+            $r->description = $request->description;
+            $r->quantity = $request->quantity;
+            $r->status = 'Waiting';
+            $r->save();
 
-        $noti = new Notification();
-        $noti->sender_emp_id = strval(Auth::user()->id);
-        $noti->receiver_dep_id = $dep_id;
-        $noti->seen = '0';
+            $noti->request_id = $r->id;
 
-        $r = new req();
-        $r->emp_id = strval(Auth::user()->id);
-        $r->request = $request->request_name;
-        $r->description = $request->description;
-        $r->quantity = $request->quantity;
-        $r->save();
+            $noti->save();
+        } else {
+            $dep_id = Department::all()->where('name', '=', 'purchasing')->value('id');
 
-        $noti->request_id = strval($r->id);
+            $noti = new Notification();
+            $noti->sender_emp_id = Auth::user()->id;
+            $noti->receiver_dep_id = $dep_id;
 
-        $noti->save();
+
+            $r = new req();
+            $r->emp_id = Auth::user()->id;
+            $r->request = $request->request_name;
+            $r->description = $request->description;
+            $r->quantity = $request->quantity;
+            $r->status = 'Waiting';
+            $r->save();
+
+            $noti->request_id = $r->id;
+
+            $noti->save();
+        }
 
         $role = Auth::user()->role;
         return redirect()->route($role . '.dashboard');
@@ -100,11 +121,48 @@ class NotificationController extends Controller
      */
     public function dismiss($id)
     {
-        $noti = Notification::where('id', '=', $id)->update(['seen' => '1']);
+        Notification::where('id', '=', $id)->update(['seen' => '1']);
+        req::where('id', '=', Notification::all()->where('id', '=', $id)->value('request_id'))->update(['status' => 'dismissed by manager']);
         $role = Auth::user()->role;
         return redirect()->route($role . '.dashboard');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Notification  $notification
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function approve($id)
+    {
+        Notification::where('id', '=', $id)->update(['seen' => '1']);
+
+        $dep_id = Department::all()->where('name', '=', 'purchasing')->value('id');
+        $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+
+        $noti = new Notification();
+        $noti->sender_emp_id = strval(Auth::user()->id);
+        $noti->receiver_dep_id = $dep_id;
+        $noti->request_id = $request_id;
+
+        $noti->save();
+
+        $role = Auth::user()->role;
+        return redirect()->route($role . '.dashboard');
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Notification  $notification
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function accept($id)
+    {
+    }
     /**
      * Show the form for editing the specified resource.
      *

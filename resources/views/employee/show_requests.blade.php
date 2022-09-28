@@ -8,7 +8,7 @@
             </p>
 
             <p class="float-right text-green-800">
-                <a href="{{ route('manager.dashboard') }}">
+                <a href="{{ route('employee.dashboard') }}">
                     <button
                         class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                         type="button">
@@ -37,6 +37,9 @@
                                         Quantity
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
                                         Date
                                     </th>
                                 </tr>
@@ -55,6 +58,10 @@
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                             {{ $req->quantity }}
+                                        </th>
+                                        <th scope="row"
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            {{ $req->status }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
