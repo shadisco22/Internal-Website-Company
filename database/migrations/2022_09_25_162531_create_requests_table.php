@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('request');
             $table->string('description')->nullable();
             $table->integer('quantity');
+            $table->string('status')->nullable();
+            $table->string('reason')->nullable();
             $table->timestamps();
         });
     }
