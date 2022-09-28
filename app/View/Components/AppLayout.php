@@ -14,11 +14,7 @@ class AppLayout extends Component
      */
     public function render()
     {
-        if (Auth::user()->role == 'superadmin')
-            return view('superadmin.layouts.app');
-        else if (Auth::user()->role == 'admin')
-            return view('admin.layouts.app');
-        else
-            abort(403);
+        $role = Auth::user()->role;
+        return view($role . '.layouts.app');
     }
 }

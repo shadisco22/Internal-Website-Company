@@ -18,7 +18,8 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        return view('admin.make_request');
+        $role = Auth::user()->role;
+        return view($role . '.make_request');
     }
 
     /**
@@ -58,7 +59,8 @@ class NotificationController extends Controller
 
         $noti->save();
 
-        return redirect()->route('admin.dashboard');
+        $role = Auth::user()->role;
+        return redirect()->route($role . '.dashboard');
     }
 
     /**

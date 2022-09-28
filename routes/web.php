@@ -54,6 +54,30 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('admin/make_request', [NotificationController::class, 'index'])->name('notification');
         Route::put('admin/make_request/store', [NotificationController::class, 'store'])->name('notification.store');
     });
+
+    Route::group([
+        'perfix' => '/employee',
+        'middleware' => 'is_employee',
+        'as'         => 'employee.',
+    ], function () {
+
+        Route::get('employee/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+        Route::get('employee/make_request', [NotificationController::class, 'index'])->name('notification');
+        Route::put('employee/make_request/store', [NotificationController::class, 'store'])->name('notification.store');
+    });
+
+    Route::group([
+        'perfix' => '/manager',
+        'middleware' => 'is_manager',
+        'as'         => 'manager.',
+    ], function () {
+
+        Route::get('manager/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+        Route::get('manager/make_request', [NotificationController::class, 'index'])->name('notification');
+        Route::put('manager/make_request/store', [NotificationController::class, 'store'])->name('notification.store');
+    });
 });
 
 

@@ -24,10 +24,8 @@ class EmployeeController extends Controller
         $departments = Department::all();
         $people = Person::all();
 
-        if (Auth::user()->role == 'superadmin')
-            return view('superadmin.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
-        else if (Auth::user()->role == 'admin')
-            return view('admin.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
+        $role = Auth::user()->role;
+        return view($role . '.employees', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
     }
 
     /**
@@ -71,7 +69,8 @@ class EmployeeController extends Controller
         $employee->hire_date = date('d-m-y');
         $employee->save();
 
-        return redirect()->route('superadmin.employee.show');
+        $role = Auth::user()->role;
+        return redirect()->route($role . '.employee.show');
     }
 
     /**
@@ -85,10 +84,8 @@ class EmployeeController extends Controller
         $employees = Employee::all();
         $departments = Department::all();
         $people = Person::all();
-        if (Auth::user()->role == 'superadmin')
-            return view('superadmin.employees_show', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
-        else if (Auth::user()->role == 'admin')
-            return view('admin.employees_show', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
+        $role = Auth::user()->role;
+        return view($role . '.employees_show', ['employees' => $employees, 'departments' => $departments, 'people' => $people]);
     }
 
     /**
