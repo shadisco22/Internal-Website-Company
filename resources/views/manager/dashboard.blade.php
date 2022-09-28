@@ -1,8 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Notifications') }}
-        </h2>
+        <div class="flow-root ">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                {{ __('Notifications') }}
+            </h2>
+            <p class="float-right text-green-800">
+                <a href="{{ route('manager.dashboard.show') }}">
+                    <button
+                        class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+                        type="button">
+                        Show Request
+                    </button>
+                </a>
+            </p>
+        </div>
     </x-slot>
 
     <div class="py-12">

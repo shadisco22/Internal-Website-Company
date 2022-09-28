@@ -3,12 +3,12 @@
         <div class="flow-root ">
             <p class="float-left text-green-600">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Show Employees') }}
+                {{ __('Show Request') }}
             </h2>
             </p>
 
             <p class="float-right text-green-800">
-                <a href="{{ route('superadmin.employee.index') }}">
+                <a href="{{ route('employee.dashboard') }}">
                     <button
                         class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded"
                         type="button">
@@ -28,45 +28,37 @@
                             <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
-                                        Name
+                                        Request
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
-                                        Department
+                                        Description
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
-                                        Job Title
+                                        Quantity
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
-                                        Role
-                                    </th>
-                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
-                                        Salary
+                                        Date
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employees as $emp)
+                                @foreach ($requests as $req)
                                     <tr class="border-b border-gray-200 dark:border-gray-700">
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                            {{ $people->where('id', '=', $emp->person_id)->value('fname') }}
-                                            {{ $people->where('id', '=', $emp->person_id)->value('lname') }}
+                                            {{ $req->request }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                            {{ $departments->where('id', '=', $emp->dep_id)->value('name') }}
+                                            {{ $req->description }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                            {{ $emp->title }}
+                                            {{ $req->quantity }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                            {{ $emp->role }}
-                                        </th>
-                                        <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                            {{ $emp->salary }} SP
+                                            {{ $req->created_at }}
                                         </th>
                                     </tr>
                                 @endforeach

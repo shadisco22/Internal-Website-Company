@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController as HomeController;
 use App\Http\Controllers\EmployeeController as EmployeeController;
 use App\Http\Controllers\NotificationController as NotificationController;
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('employee/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+        Route::get('employee/Request/index', [RequestController::class, 'index'])->name('dashboard.index');
+        Route::get('employee/Request/show_request', [RequestController::class, 'show'])->name('dashboard.show');
+
         Route::get('employee/make_request', [NotificationController::class, 'index'])->name('notification');
         Route::put('employee/make_request/store', [NotificationController::class, 'store'])->name('notification.store');
     });
@@ -74,6 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
     ], function () {
 
         Route::get('manager/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+        Route::get('manager/Request/index', [RequestController::class, 'index'])->name('dashboard.index');
+        Route::get('manager/Request/show_request', [RequestController::class, 'show'])->name('dashboard.show');
 
         Route::get('manager/make_request', [NotificationController::class, 'index'])->name('notification');
         Route::put('manager/make_request/store', [NotificationController::class, 'store'])->name('notification.store');

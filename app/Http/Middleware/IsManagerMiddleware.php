@@ -16,7 +16,7 @@ class IsManagerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role != 'employee') {
+        if (!auth()->check() || auth()->user()->role != 'manager') {
             abort(403);
         }
         return $next($request);
