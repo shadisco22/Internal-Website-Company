@@ -16,7 +16,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-300">
+    <div class=" min-h-screen bg-cyan-50">
         @include('superadmin.layouts.navigation')
 
         <!-- Page Heading -->
