@@ -162,6 +162,11 @@ class NotificationController extends Controller
      */
     public function accept($id)
     {
+        Notification::where('id', '=', $id)->update(['seen' => '1']);
+        $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+        req::where('id', '=', $request_id)->update(['accept_emp_id' => Auth::user()->id]);
+
+        return redirect()->route('employee.dashboard.orders');
     }
     /**
      * Show the form for editing the specified resource.

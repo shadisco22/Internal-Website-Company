@@ -45,6 +45,8 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('superadmin')->logout();
         Auth::guard('admin')->logout();
+        Auth::guard('employee')->logout();
+        Auth::guard('manager')->logout();
 
         $request->session()->invalidate();
 

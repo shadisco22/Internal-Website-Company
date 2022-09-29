@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Request extends Model
 {
     use HasFactory;
-    protected $fillable = ['emp_id','request','description','quantity'];
+    protected $fillable = ['emp_id', 'request', 'description', 'quantity', 'status', 'reason', 'accept_emp_id', 'done'];
 
     public function employees()
     {
@@ -18,6 +18,4 @@ class Request extends Model
     {
         return $this->hasMany(Offer::class);
     }
-
-
 }

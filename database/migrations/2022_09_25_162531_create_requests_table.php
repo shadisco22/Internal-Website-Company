@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('emp_id');
+            $table->integer('accept_emp_id')->nullable();
+            $table->boolean('done')->nullable();
             $table->string('request');
             $table->string('description')->nullable();
             $table->integer('quantity');
