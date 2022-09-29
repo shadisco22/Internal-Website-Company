@@ -42,4 +42,13 @@ class RequestController extends Controller
         $show_request = ModelsRequest::all()->where('emp_id', '=', Auth::user()->id);   // all request from current employee
         return view($role . ".show_requests", ['requests' => $show_request]);
     }
+
+    public function show_orders()
+    {
+        $orders = ModelsRequest::all()->where('accept_emp_id', '=', Auth::user()->id)
+            ->where('done', '=', 0);
+
+
+        return view("employee.show_orders", ['orders' => $orders]);
+    }
 }

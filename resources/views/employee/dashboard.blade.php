@@ -4,15 +4,24 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Notifications') }}
             </h2>
-            <p class="float-right text-green-800">
+            <p class="float-right text-green-800 ">
                 <a href="{{ route('employee.dashboard.show') }}">
                     <button
-                        class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                        type="button">
+                        class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                         Show Request
                     </button>
                 </a>
             </p>
+            @if ($department_name == 'purchasing')
+                <p class="float-right text-green-800 lg:px-2">
+                    <a href="{{ route('employee.dashboard.orders') }}">
+                        <button
+                            class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                            Show Orders
+                        </button>
+                    </a>
+                </p>
+            @endif
         </div>
     </x-slot>
 
