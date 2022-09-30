@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('receipts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('emp_id');
-            $table->integer('accept_emp_id')->nullable();
-            $table->boolean('done')->default('0');
-            $table->string('request');
-            $table->string('description')->nullable();
-            $table->integer('quantity');
-            $table->string('status')->nullable();
-            $table->string('reason')->nullable();
+            $table->foreignId('accept_emp_id');
+            $table->integer('request_id');
+            $table->double('total_price');
+            $table->boolean('payed')->default('0');
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('receipts');
     }
 };

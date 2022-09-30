@@ -7,6 +7,7 @@ use App\Models\Notification;
 use App\Models\Employee;
 use App\Models\Person;
 use App\Models\Department;
+use App\Models\Request as req;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -33,12 +34,14 @@ class HomeController extends Controller
 
         $employees = Employee::all();
         $people = Person::all();
+        $requests = req::all();
 
         $role = Auth::user()->role;
         return view($role . '.dashboard', [
             'noti' => $noti, 'employees' => $employees, 'people' => $people,
             'department_name' => $department_name,
-            'noti_dep' => $noti_dep
+            'noti_dep' => $noti_dep,
+            'requests' => $requests
         ]);
     }
 }
