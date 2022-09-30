@@ -3,7 +3,7 @@
         <div class="flow-root ">
             <p class="float-left text-green-600">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Show Orders') }}
+                {{ __('Show Receipts') }}
             </h2>
             </p>
 
@@ -28,6 +28,9 @@
                             <thead class="text-xs text-gray-700 uppercase ">
                                 <tr>
                                     <th scope="col" class="py-3 px-6 bg-gray-50 ">
+                                        Purchasing Employee
+                                    </th>
+                                    <th scope="col" class="py-3 px-6  bg-gray-50 ">
                                         Request
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50 ">
@@ -37,7 +40,13 @@
                                         Quantity
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50 ">
-                                        Date
+                                        Offer
+                                    </th>
+                                    <th scope="col" class="py-3 px-6  bg-gray-50 ">
+                                        Unit Price
+                                    </th>
+                                    <th scope="col" class="py-3 px-6  bg-gray-50 ">
+                                        Total Price
                                     </th>
                                     <th>
                                     </th>
@@ -46,50 +55,52 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($orders as $order)
+                                @foreach ($receipts as $rece)
+                                    @php
+                                        $person = $employees->where('id', '=', $rece->accept_emp_id);
+                                        $person_id = $person->value('person_id');
+                                        $employee = $people->where('id', '=', $person_id);
+                                        $request = $requests->where('id', '=', $rece->request_id);
+                                        $offer = $offers->where('req_id', '=', $request->value('id'))->where('chosen', '=', '1');
+
+                                    @endphp
                                     <tr class="border-b border-gray-200 ">
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 ">
-                                            {{ $order->request }}
+                                            {{ $employee->value('fname') }} {{ $employee->value('lname') }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 ">
-                                            {{ $order->description }}
+                                            {{ $request->value('request') }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 ">
-                                            {{ $order->quantity }}
+                                            {{ $request->value('description') }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50  ">
-                                            {{ $order->created_at }}
+                                            {{ $request->value('quantity') }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50  ">
-                                            <a href="{{ route('employee.offer', $order->id) }}">
-                                                <button
-                                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
-                                                    Add Offer
-                                                </button>
-                                            </a>
+                                            {{ $offer->value('offer') }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            <a href="{{ route('employee.notification.send_to_manager', $order->id) }}">
-
-                                                <button
-                                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
-                                                    Send To Manager
-                                                </button>
-                                            </a>
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50  ">
+                                            {{ $offer->value('price') }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 ">
-                                            <a href="{{ route('employee.dashboard.orders.delete', $order->id) }}">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50  ">
+                                            {{ $rece->value('total_price') }}
+                                        </th>
+                                        <th scope="row"
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50  ">
+                                            <a href="{{ route('employee.receipts.pay', $rece->id) }}">
                                                 <button
-                                                    class="shadow bg-red-600 hover:bg-red-600 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
-                                                    Delete
+                                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
+                                                    Pay
                                                 </button>
+                                            </a>
                                         </th>
                                     </tr>
                                 @endforeach

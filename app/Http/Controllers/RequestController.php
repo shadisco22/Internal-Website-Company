@@ -50,13 +50,13 @@ class RequestController extends Controller
     public function show_orders()
     {
         $orders = ModelsRequest::all()->where('accept_emp_id', '=', Auth::user()->id)
-            ->where('done', '=', 0);
+            ->where('status', '=', 'waiting');
 
 
         return view("employee.show_orders", ['orders' => $orders]);
     }
 
-       /**
+    /**
      * Display the specified resource.
      *
      * @param  int $id
@@ -64,14 +64,14 @@ class RequestController extends Controller
      */
     public function delete_accepted_request($id)
     {
-        ModelsRequest::where('id','=',$id)
-        ->where('accept_emp_id', '=', Auth::user()->id)->update(['accept_emp_id' => null]);
+        ModelsRequest::where('id', '=', $id)
+            ->where('accept_emp_id', '=', Auth::user()->id)->update(['accept_emp_id' => null]);
 
-        Notification::where('request_id','=',$id)
-        ->where('receiver_emp_id','=',null)
-        ->update(['seen' => '0']);
+        Notification::where('request_id', '=', $id)
+            ->where('receiver_emp_id', '=', null)
+            ->update(['seen' => '0']);
 
-        offer::where('req_id','=',$id)->delete();
+        offer::where('req_id', '=', $id)->delete();
 
         return redirect()->route('employee.dashboard.orders');
     }

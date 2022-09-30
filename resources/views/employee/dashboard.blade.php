@@ -29,6 +29,16 @@
                         </button>
                     </a>
                 </p>
+
+            @else
+                <p class="float-right text-green-800 lg:px-2">
+                    <a href="{{ route('employee.dashboard.receipts') }}">
+                        <button
+                            class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                            Show Receipts
+                            </button>
+                            </a>
+                            </p>
             @endif
         </div>
     </x-slot>

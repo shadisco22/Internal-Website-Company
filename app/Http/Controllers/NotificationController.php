@@ -49,6 +49,8 @@ class NotificationController extends Controller
         $manager_id = Employee::all()->where('dep_id', '=', Auth::user()->dep_id)
             ->where('role', '=', 'manager')
             ->value("id");
+        req::where('id', '=', $id)->update(['status' => 'accepted']);
+
         $noti = new Notification();
         $noti->sender_emp_id = Auth::user()->id;
         $noti->receiver_emp_id = $manager_id;
@@ -81,7 +83,7 @@ class NotificationController extends Controller
             $r->request = $request->request_name;
             $r->description = $request->description;
             $r->quantity = $request->quantity;
-            $r->status = 'Waiting';
+            $r->status = 'waiting';
             $r->save();
 
             $noti->request_id = $r->id;
@@ -101,7 +103,7 @@ class NotificationController extends Controller
             $r->request = $request->request_name;
             $r->description = $request->description;
             $r->quantity = $request->quantity;
-            $r->status = 'Waiting';
+            $r->status = 'waiting';
             $r->save();
 
             $noti->request_id = $r->id;
@@ -136,16 +138,16 @@ class NotificationController extends Controller
         $type = Notification::all()->where('id', '=', $id)->value('type');
         if ($type == 'RTFO') {
             $offers = Offer::all()->where('id', '=', $req_id);
-            return view($role . '.notification_details', [
+            return view($role . '.notification_details_for_order', [
                 'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
                 'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id, 'offers' => $offers, 'type' => $type
             ]);
         }
         if ($type == 'AA') {
-            $offer = Offer::all()->where('id', '=', $req_id)
+            $offer = Offer::all()->where('req_id', '=', $req_id)
                 ->where('chosen', '=', '1');
 
-            return view($role . '.notification_details', [
+            return view($role . '.notification_details_for_order', [
                 'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
                 'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id, 'offer' => $offer, 'type' => $type
             ]);
@@ -197,7 +199,7 @@ class NotificationController extends Controller
             $noti->type = 'R';
             $noti->save();
         } else if ($type == 'RTFO') {
-            Offer::where('id', '=', $request->offer_id)->update(['chose' => '1']);
+            Offer::where('id', '=', $request->offer_id)->update(['chosen' => '1']);
             $dep_id = Department::all()->where('name', '=', 'accounting')->value('id');
             $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
             $manager_id = Employee::all()->where('dep_id', '=', $dep_id)
@@ -212,15 +214,17 @@ class NotificationController extends Controller
             $noti->save();
         } else {
             $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
-            $accept_emp_id = req::all()->where('id', '=', $request)->value('accept_emp_id');
-            $quantity = req::all()->where('id', '=', $request)->value('quantity');
+            $accept_emp_id = req::all()->where('id', '=', $request_id)->value('accept_emp_id');
+            $quantity = req::all()->where('id', '=', $request_id)->value('quantity');
             $price = Offer::all()->where('req_id', '=', $request_id)
                 ->where('chosen', '=', '1')->value('price');
 
             $receipte = new Receipt();
             $receipte->emp_id = Auth::user()->id;
             $receipte->accept_emp_id = $accept_emp_id;
+            $receipte->request_id = $request_id;
             $receipte->total_price = intval($quantity) * intval($price);
+
             $receipte->save();
         }
         $role = Auth::user()->role;
