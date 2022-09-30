@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('employee/Request/index', [RequestController::class, 'index'])->name('dashboard.index');
         Route::get('employee/Request/show_request', [RequestController::class, 'show'])->name('dashboard.show');
         Route::get('employee/Request/show_orders', [RequestController::class, 'show_orders'])->name('dashboard.orders');
+        Route::get('employee/Request/inprogress_orders', [RequestController::class, 'inprogress_orders'])->name('dashboard.inprogress_orders');
         Route::get('employee/Request/show_orders/delete/{id}', [RequestController::class, 'delete_accepted_request'])->name('dashboard.orders.delete');
 
 

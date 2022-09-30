@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Notification;
 use App\Models\Request as ModelsRequest;
@@ -73,5 +74,20 @@ class RequestController extends Controller
         offer::where('req_id','=',$id)->delete();
 
         return redirect()->route('employee.dashboard.orders');
+    }
+           /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function inprogress_orders()
+    {
+        $role = Auth::user()->role;
+        $offers=Offer::all();
+        $employees=Employee::all();
+        $departments=Department::all();
+        $inprogress=ModelsRequest::all()->where('accept_emp_id', '=', Auth::user()->id)->where('status','=','in-progress');
+        return view($role . ".inprogress_orders",['inprogress' => $inprogress,'offers'=>$offers,'departments'=>$departments,'employees'=>$employees]);
     }
 }

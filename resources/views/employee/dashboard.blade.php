@@ -21,13 +21,21 @@
                         </button>
                     </a>
                 </p>
+                <p class="float-right text-green-800 lg:px-2">
+                    <a href="{{ route('employee.dashboard.inprogress_orders') }}">
+                        <button
+                            class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                            Inprogrees Orders
+                        </button>
+                    </a>
+                </p>
             @endif
         </div>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white rounded-lg border border-gray-200 w-full text-gray-900">
+            <div class="bg-gray-300 rounded-lg border border-gray-200 w-full text-gray-900">
                 @if ($department_name == 'purchasing')
                     @foreach ($noti_dep as $not)
                         <a href="{{ route('employee.notification.details', $not->id) }}"
@@ -39,7 +47,7 @@
                                 $fname = $people->where('id', '=', $person_id)->value('fname');
                                 $lname = $people->where('id', '=', $person_id)->value('lname');
                                 $created_at = $not->created_at;
-                                echo '<h3> ORDER </h3>' . $fname . ' ' . $lname . ' ............................... at : ' . $created_at;
+                                echo '<h3> ORDER </h3>' . $fname . ' ' . $lname . '<br>' . $created_at;
                             @endphp
                         </a>
                     @endforeach

@@ -42,9 +42,8 @@
                                     Offer
                                 </label>
                                 <input
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="offer" name='offer' type="text" placeholder="Enter Your Offer">
-                                <p class="text-red-500 text-xs italic">Please fill out this field.</p>
                             </div>
                             <div class="w-full md:w-1/2 px-2 mb-8 md:mb-2">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
