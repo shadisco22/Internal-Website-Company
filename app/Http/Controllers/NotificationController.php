@@ -6,10 +6,12 @@ use App\Models\Notification;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Person;
+use App\Models\Receipt;
 use App\Models\Request as req;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Events\request_notification_event;
+use App\Models\Offer;
 
 class NotificationController extends Controller
 {
@@ -33,6 +35,30 @@ class NotificationController extends Controller
     {
         //
     }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function send_to_manager($id, Request $request)
+    {
+        $manager_id = Employee::all()->where('dep_id', '=', Auth::user()->dep_id)
+            ->where('role', '=', 'manager')
+            ->value("id");
+        $noti = new Notification();
+        $noti->sender_emp_id = Auth::user()->id;
+        $noti->receiver_emp_id = $manager_id;
+        $noti->request_id = $id;
+        $noti->type = 'RTFO';
+        $noti->save();
+
+        return redirect()->route('employee.dashboard.orders');
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -59,6 +85,7 @@ class NotificationController extends Controller
             $r->save();
 
             $noti->request_id = $r->id;
+            $noti->type = 'R';
 
             $noti->save();
         } else {
@@ -78,7 +105,7 @@ class NotificationController extends Controller
             $r->save();
 
             $noti->request_id = $r->id;
-
+            $noti->type = 'R';
             $noti->save();
         }
 
@@ -106,6 +133,24 @@ class NotificationController extends Controller
         $req_quantity = req::all()->where('id', '=', $req_id)->value('quantity');
         $created_at = Notification::all()->where('id', '=', $id)->value('created_at');
         $role = Auth::user()->role;
+        $type = Notification::all()->where('id', '=', $id)->value('type');
+        if ($type == 'RTFO') {
+            $offers = Offer::all()->where('id', '=', $req_id);
+            return view($role . '.notification_details', [
+                'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
+                'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id, 'offers' => $offers, 'type' => $type
+            ]);
+        }
+        if ($type == 'AA') {
+            $offer = Offer::all()->where('id', '=', $req_id)
+                ->where('chosen', '=', '1');
+
+            return view($role . '.notification_details', [
+                'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
+                'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id, 'offer' => $offer, 'type' => $type
+            ]);
+        }
+
         return view($role . '.notification_details', [
             'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
             'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id
@@ -132,22 +177,52 @@ class NotificationController extends Controller
      *
      * @param  \App\Models\Notification  $notification
      * @param int $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function approve($id)
+    public function approve($id, Request $request)
     {
         Notification::where('id', '=', $id)->update(['seen' => '1']);
 
-        $dep_id = Department::all()->where('name', '=', 'purchasing')->value('id');
-        $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+        $type = Notification::where('id', '=', $id)->value('type');
+        if ($type == 'R') {
+            $dep_id = Department::all()->where('name', '=', 'purchasing')->value('id');
+            $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
 
-        $noti = new Notification();
-        $noti->sender_emp_id = strval(Auth::user()->id);
-        $noti->receiver_dep_id = $dep_id;
-        $noti->request_id = $request_id;
+            $noti = new Notification();
+            $noti->sender_emp_id = Auth::user()->id;
+            $noti->receiver_dep_id = $dep_id;
+            $noti->request_id = $request_id;
 
-        $noti->save();
+            $noti->type = 'R';
+            $noti->save();
+        } else if ($type == 'RTFO') {
+            Offer::where('id', '=', $request->offer_id)->update(['chose' => '1']);
+            $dep_id = Department::all()->where('name', '=', 'accounting')->value('id');
+            $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+            $manager_id = Employee::all()->where('dep_id', '=', $dep_id)
+                ->where('role', '=', 'manager')
+                ->value("id");
 
+            $noti = new Notification();
+            $noti->sender_emp_id = Auth::user()->id;
+            $noti->receiver_emp_id = $manager_id;
+            $noti->request_id = $request_id;
+            $noti->type = 'AA';
+            $noti->save();
+        } else {
+            $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+            $accept_emp_id = req::all()->where('id', '=', $request)->value('accept_emp_id');
+            $quantity = req::all()->where('id', '=', $request)->value('quantity');
+            $price = Offer::all()->where('req_id', '=', $request_id)
+                ->where('chosen', '=', '1')->value('price');
+
+            $receipte = new Receipt();
+            $receipte->emp_id = Auth::user()->id;
+            $receipte->accept_emp_id = $accept_emp_id;
+            $receipte->total_price = intval($quantity) * intval($price);
+            $receipte->save();
+        }
         $role = Auth::user()->role;
         return redirect()->route($role . '.dashboard');
     }

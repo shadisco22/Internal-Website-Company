@@ -33,4 +33,8 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(Offer::class);
     }
+    public function receipts()
+    {
+        return $this->hasMany(Receipt::class);
+    }
 }

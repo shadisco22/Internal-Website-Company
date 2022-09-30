@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('accept_emp_id');
             $table->foreignId('req_id');
-            $table->boolean('seen');
+            $table->boolean('seen')->default('0');
             $table->string('offer');
             $table->double('price');
+            $table->boolean('chosen')->default('0');
             $table->softDeletes();
             $table->timestamps();
         });
