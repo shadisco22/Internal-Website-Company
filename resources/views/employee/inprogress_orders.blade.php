@@ -3,7 +3,7 @@
         <div class="flow-root ">
             <p class="float-left text-green-600">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Show Request') }}
+                {{ __('Inprogress Orders') }}
             </h2>
             </p>
 
@@ -37,35 +37,47 @@
                                         Quantity
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50">
-                                        Status
+                                        Offers
                                     </th>
                                     <th scope="col" class="py-3 px-6  bg-gray-50">
-                                        Date
+                                        Price
+                                    </th>
+                                    <th scope="col" class="py-3 px-6  bg-gray-50">
+                                        Department Name
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($requests as $req)
+                                @foreach ($inprogress as $inpro)
+                                    @php
+                                        $offer = $offers->where('req_id', '=', $inpro->id)->where('chosen', '=', '1');
+                                        $employee = $employees->where('id', '=', $inpro->emp_id);
+                                        $department = $departments->where('id', '=', $employee->value('dep_id'));
+                                    @endphp
                                     <tr class="border-b border-gray-200 dark:border-gray-200">
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $req->request }}
+                                            {{ $inpro->request }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $req->description }}
+                                            {{ $inpro->description }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $req->quantity }}
+                                            {{ $inpro->quantity }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $req->status }}
+                                            {{ $offer->value('offer') }}
                                         </th>
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $req->created_at }}
+                                            {{ $offer->value('price') }}
+                                        </th>
+                                        <th scope="row"
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                            {{ $department->value('name') }}
                                         </th>
                                     </tr>
                                 @endforeach
