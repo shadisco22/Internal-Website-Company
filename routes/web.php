@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('employee/Request/index', [RequestController::class, 'index'])->name('dashboard.index');
         Route::get('employee/Request/show_request', [RequestController::class, 'show'])->name('dashboard.show');
         Route::get('employee/Request/show_orders', [RequestController::class, 'show_orders'])->name('dashboard.orders');
+        Route::get('employee/Request/show_orders/delete/{id}', [RequestController::class, 'delete_accepted_request'])->name('dashboard.orders.delete');
+
 
         Route::get('employee/make_request', [NotificationController::class, 'index'])->name('notification');
         Route::put('employee/make_request/store', [NotificationController::class, 'store'])->name('notification.store');

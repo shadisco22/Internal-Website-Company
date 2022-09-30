@@ -21,7 +21,9 @@
                 </label>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        {{ $person_id = $employees->where('id', '=', Auth::user()->id)->value('person_id') }}
+                        @php
+                            $person_id = $employees->where('id', '=', Auth::user()->id)->value('person_id');
+                        @endphp
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
