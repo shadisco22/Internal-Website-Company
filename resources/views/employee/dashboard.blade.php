@@ -44,11 +44,6 @@
                         </a>
                     @endforeach
                 @endif
-                <a href="#!" aria-current="true"
-                    class="block px-6 py-6 border-b border-gray-200 w-full rounded-t-lg bg-blue-600 text-white cursor-pointer">
-                    The current link item
-                </a>
-
             </div>
         </div>
     </div>

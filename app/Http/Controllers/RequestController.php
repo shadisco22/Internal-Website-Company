@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Notification;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
+use PHPUnit\Framework\Error\Notice;
 
 class RequestController extends Controller
 {
@@ -50,5 +53,25 @@ class RequestController extends Controller
 
 
         return view("employee.show_orders", ['orders' => $orders]);
+    }
+
+       /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_accepted_request($id)
+    {
+        ModelsRequest::where('id','=',$id)
+        ->where('accept_emp_id', '=', Auth::user()->id)->update(['accept_emp_id' => null]);
+
+        Notification::where('request_id','=',$id)
+        ->where('receiver_emp_id','=',null)
+        ->update(['seen' => '0']);
+
+        offer::where('req_id','=',$id)->delete();
+
+        return redirect()->route('employee.dashboard.orders');
     }
 }

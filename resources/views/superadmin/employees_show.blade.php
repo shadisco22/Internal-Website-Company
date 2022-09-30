@@ -27,45 +27,45 @@
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
                                 <tr>
-                                    <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6 bg-gray-50">
                                         Name
                                     </th>
-                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6  bg-gray-50">
                                         Department
                                     </th>
-                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6  bg-gray-50">
                                         Job Title
                                     </th>
-                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6  bg-gray-50">
                                         Role
                                     </th>
-                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6  bg-gray-50">
                                         Salary
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($employees as $emp)
-                                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <tr class="border-b border-gray-200 dark:border-gray-200">
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $people->where('id', '=', $emp->person_id)->value('fname') }}
                                             {{ $people->where('id', '=', $emp->person_id)->value('lname') }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $departments->where('id', '=', $emp->dep_id)->value('name') }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $emp->title }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $emp->role }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $emp->salary }} SP
                                         </th>
                                     </tr>

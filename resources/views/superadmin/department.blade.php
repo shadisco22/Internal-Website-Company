@@ -19,10 +19,19 @@
                                     for="grid-first-name">
                                     Name
                                 </label>
-                                <input
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                <select
+                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="grid-first-name" name='name' type="text" placeholder="Name Dapartment">
-                                <p class="text-red-500 text-xs italic">Please fill out this field.</p>
+                                    <option value="hr"> Human Resources </option>
+                                    <option value="purchasing"> Purchasing</option>
+                                    <option value="it"> IT </option>
+                                    <option value="logic">Logic</option>
+                                    <option value="accounting"> Accounting and Finance </option>
+                                    <option value=marketing> Marketing </option>
+                                    <option value="r&d"> Research and Development R&D </option>
+                                    <option value="production"> Production </option>
+
+                                </select>
                             </div>
                             <div class="w-full md:w-1/2 px-2 mb-8 md:mb-2">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -52,26 +61,26 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase">
                                 <tr>
-                                    <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6 bg-gray-50">
                                         Name
                                     </th>
-                                    <th scope="col" class="py-3 px-6  bg-gray-50 dark:bg-gray-800">
+                                    <th scope="col" class="py-3 px-6  bg-gray-50">
                                         Description
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($departments as $dep)
-                                    <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <tr class="border-b border-gray-200 dark:border-gray-200">
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $dep->name }}
                                         </th>
                                         <th scope="row"
-                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $dep->description }}
                                         </th>
                                     </tr>
