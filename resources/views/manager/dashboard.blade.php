@@ -21,7 +21,7 @@
             <div class="bg-white rounded-lg border border-gray-200 w-full text-gray-900">
                 @foreach ($noti as $not)
                     @if ($not->type == 'RTFO')
-                        <a href="{{ route('notification.order.details', $not->id) }}"
+                        <a href="{{ route('manager.notification.order.details', $not->id) }}"
                             class="block px-6 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-gray-500
                     focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 cursor-pointer">
                             @php
@@ -35,7 +35,7 @@
                         </a>
                     @endif
                     @if ($not->type == 'AA')
-                        <a href="{{ route('notification.order.details', $not->id) }}"
+                        <a href="{{ route('manager.notification.order.details', $not->id) }}"
                             class="block px-6 py-2 border-b border-gray-200 w-full hover:bg-gray-100 hover:text-gray-500
                 focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 cursor-pointer">
                             @php

@@ -95,16 +95,15 @@
                         </div>
 
                         @if ($type == 'RTFO')
-                            <div class="flex  -mx-3 mb-6">
+                            <div class="flex  -mx-0 mb-6">
                                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                         for="offers">
                                         Offers
                                     </label>
                                     @foreach ($offers as $offer)
-                                        <input type='radio' name='offer_id' value='{{ $offer->id }}'
-                                            class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
-                                        Offer: {{ $offer->offer }} | Price : {{ $offer->price }}</input>
+                                        <input type='radio' name='offer_id' value='{{ $offer->id }}'>
+                                        Offer: {{ $offer->offer }} | Price : {{ $offer->price }}
                                     @endforeach
 
                                 </div>
@@ -117,7 +116,7 @@
                                 </label>
                                 <label
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
-                                    {{ $offer->offer }}</label>
+                                    {{ $offer->value('offer') }}</label>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -126,7 +125,7 @@
                                 </label>
                                 <label
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
-                                    {{ $offer->price }}</label>
+                                    {{ $offer->value('price') }}</label>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -135,7 +134,7 @@
                                 </label>
                                 <label
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
-                                    {{ intval($offer->price) * intval($req_quantity) }}</label>
+                                    {{ intval($offer->value('price')) * intval($req_quantity) }}</label>
                             </div>
                         @endif
 
@@ -147,17 +146,18 @@
                                     Approve
                                 </button>
                             </div>
+                            <div class="md:w-1/3">
+                                <a href="{{ route('manager.notification.details.dismiss', $id) }}">
+                                    <button
+                                        class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                        Dissmiss
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </form>
-                <div class="md:w-1/3">
-                    <a href="{{ route('manager.notification.details.dismiss', $id) }}">
-                        <button
-                            class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                            Dissmiss
-                        </button>
-                    </a>
-                </div>
+
             </div>
         </div>
     </div>
