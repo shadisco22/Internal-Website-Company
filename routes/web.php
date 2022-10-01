@@ -71,6 +71,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('employee/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+        Route::get('employee/done/{id}', [RequestController::class, 'done'])->name('done');
+        Route::get('employee/mark_as_read/{id}', [NotificationController::class, 'markasread'])->name('mark_as_read');
+
         Route::get('employee/profile', [ProfileController::class, 'index'])->name('profile.index');
 
 

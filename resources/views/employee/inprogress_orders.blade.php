@@ -45,6 +45,8 @@
                                     <th scope="col" class="py-3 px-6  bg-gray-50">
                                         Department Name
                                     </th>
+                                    <th>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,6 +80,15 @@
                                         <th scope="row"
                                             class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                             {{ $department->value('name') }}
+                                        </th>
+                                        <th scope="row"
+                                            class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                            <a href='{{ route('employee.done', $inpro->id) }}'>
+                                                <button
+                                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
+                                                    Done
+                                                </button>
+                                            </a>
                                         </th>
                                     </tr>
                                 @endforeach
