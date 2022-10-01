@@ -27,6 +27,20 @@ class NotificationController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function markasread($id)
+    {
+        Notification::where('id', '=', $id)->update(['seen' => '1']);
+        $role = Auth::user()->role;
+        return redirect()->route($role . '.dashboard');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -137,7 +151,9 @@ class NotificationController extends Controller
         $role = Auth::user()->role;
         $type = Notification::all()->where('id', '=', $id)->value('type');
         if ($type == 'RTFO') {
-            $offers = Offer::all()->where('id', '=', $req_id);
+            $offers = Offer::all()->where('req_id', '=', $req_id)
+                ->where('chosen', '=', '0');
+            // dd($offers);
             return view($role . '.notification_details_for_order', [
                 'fname' => $fname, 'lname' => $lname, 'job_title' => $job_title, 'req' => $req, 'req_desc' => $req_desc,
                 'req_quantity' => $req_quantity, 'created_at' => $created_at, 'id' => $id, 'offers' => $offers, 'type' => $type
@@ -170,6 +186,18 @@ class NotificationController extends Controller
     {
         Notification::where('id', '=', $id)->update(['seen' => '1']);
         req::where('id', '=', Notification::all()->where('id', '=', $id)->value('request_id'))->update(['status' => 'dismissed by manager']);
+
+        $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+        $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+
+        $noti_to_emp = new Notification();
+        $noti_to_emp->sender_emp_id = Auth::user()->id;
+        $noti_to_emp->receiver_emp_id = $sender_emp_id;
+        $noti_to_emp->request_id = $request_id;
+
+        $noti_to_emp->type = 'MSGDISSMISS';
+        $noti_to_emp->save();
+
         $role = Auth::user()->role;
         return redirect()->route($role . '.dashboard');
     }
@@ -198,6 +226,15 @@ class NotificationController extends Controller
 
             $noti->type = 'R';
             $noti->save();
+
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $noti_to_emp = new Notification();
+            $noti_to_emp->sender_emp_id = Auth::user()->id;
+            $noti_to_emp->receiver_emp_id = $sender_emp_id;
+            $noti_to_emp->request_id = $request_id;
+
+            $noti_to_emp->type = 'MSG';
+            $noti_to_emp->save();
         } else if ($type == 'RTFO') {
             Offer::where('id', '=', $request->offer_id)->update(['chosen' => '1']);
             $dep_id = Department::all()->where('name', '=', 'accounting')->value('id');

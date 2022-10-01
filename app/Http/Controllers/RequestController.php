@@ -56,6 +56,20 @@ class RequestController extends Controller
         return view("employee.show_orders", ['orders' => $orders]);
     }
 
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function done($id)
+    {
+        ModelsRequest::where('id', '=', $id)->update(['status' => 'Done', 'done' => '1']);
+
+        return redirect()->route('employee.dashboard.inprogress_orders');
+    }
+
     /**
      * Display the specified resource.
      *
@@ -75,7 +89,7 @@ class RequestController extends Controller
 
         return redirect()->route('employee.dashboard.orders');
     }
-           /**
+    /**
      * Display the specified resource.
      *
      * @param  int $id
@@ -84,10 +98,10 @@ class RequestController extends Controller
     public function inprogress_orders()
     {
         $role = Auth::user()->role;
-        $offers=Offer::all();
-        $employees=Employee::all();
-        $departments=Department::all();
-        $inprogress=ModelsRequest::all()->where('accept_emp_id', '=', Auth::user()->id)->where('status','=','in-progress');
-        return view($role . ".inprogress_orders",['inprogress' => $inprogress,'offers'=>$offers,'departments'=>$departments,'employees'=>$employees]);
+        $offers = Offer::all();
+        $employees = Employee::all();
+        $departments = Department::all();
+        $inprogress = ModelsRequest::all()->where('accept_emp_id', '=', Auth::user()->id)->where('status', '=', 'in-progress');
+        return view($role . ".inprogress_orders", ['inprogress' => $inprogress, 'offers' => $offers, 'departments' => $departments, 'employees' => $employees]);
     }
 }

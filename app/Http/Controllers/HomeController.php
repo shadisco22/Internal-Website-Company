@@ -22,7 +22,6 @@ class HomeController extends Controller
         $noti = Notification::all()
             ->where('receiver_emp_id', '=', Auth::user()->id)
             ->where('seen', '=', '0');
-
         $noti_dep = Notification::all()
             ->where('receiver_dep_id', '=', Department::all()
                 ->where('name', '=', 'purchasing')->value('id'))

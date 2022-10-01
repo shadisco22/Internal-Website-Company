@@ -71,6 +71,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('employee/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
+        Route::get('employee/done/{id}', [RequestController::class, 'done'])->name('done');
+        Route::get('employee/mark_as_read/{id}', [NotificationController::class, 'markasread'])->name('mark_as_read');
+
         Route::get('employee/profile', [ProfileController::class, 'index'])->name('profile.index');
 
 
@@ -80,7 +83,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('employee/receipts', [ReceiptController::class, 'index'])->name('dashboard.receipts');
         Route::get('employee/receipts/pay/{id}', [ReceiptController::class, 'pay'])->name('receipts.pay');
         Route::get('employee/request/show_orders/delete/{id}', [RequestController::class, 'delete_accepted_request'])->name('dashboard.orders.delete');
-                Route::get('employee/Request/inprogress_orders', [RequestController::class, 'inprogress_orders'])->name('dashboard.inprogress_orders');
+        Route::get('employee/Request/inprogress_orders', [RequestController::class, 'inprogress_orders'])->name('dashboard.inprogress_orders');
 
 
 

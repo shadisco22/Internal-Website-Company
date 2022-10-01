@@ -30,7 +30,7 @@
                                 $fname = $people->where('id', '=', $person_id)->value('fname');
                                 $lname = $people->where('id', '=', $person_id)->value('lname');
                                 $created_at = $not->created_at;
-                                echo '<h3>' . $fname . ' Wants To Fullfill This Order </h3>' . $fname . ' ' . $lname . ' ............................... at : ' . $created_at;
+                                echo '<h3>' . $fname . ' Wants To Fullfill This Order </h3>' . $fname . ' ' . $lname . '<br>' . $created_at;
                             @endphp
                         </a>
                     @endif
@@ -44,7 +44,7 @@
                                 $fname = $people->where('id', '=', $person_id)->value('fname');
                                 $lname = $people->where('id', '=', $person_id)->value('lname');
                                 $created_at = $not->created_at;
-                                echo '<h3> Purchasing Manager ' . $fname . ' Wants To Fullfill This Order </h3>' . $fname . ' ' . $lname . ' ............................... at : ' . $created_at;
+                                echo '<h3> Purchasing Manager ' . $fname . ' Wants To Fullfill This Order </h3>' . $fname . ' ' . $lname . ' <br>' . $created_at;
                             @endphp
                         </a>
                     @endif
