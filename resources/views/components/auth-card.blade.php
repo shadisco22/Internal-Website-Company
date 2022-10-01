@@ -1,5 +1,5 @@
 <div style="background-image: url('/img/login.jpg');"
-    class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-700">
+    class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-700 bg-no-repeat">
     <div>
         {{ $logo }}
     </div>
