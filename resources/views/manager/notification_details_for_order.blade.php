@@ -131,18 +131,18 @@
                         <div class="flex mx-3 mb-6">
 
                             <div class="md:w-2/4">
-                                <button
+                                <button type='submit' name='action' value='approve'
                                     class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                     Approve
                                 </button>
                             </div>
                             <div class="md:w-3/4">
-                                <a href="{{ route('manager.notification.details.dismiss', $id) }}">
-                                    <button
-                                        class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-                                        Dissmiss
-                                    </button>
-                                </a>
+
+                                <button type='submit' name='action' value='dismiss'
+                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+                                    Dissmiss
+                                </button>
+
                             </div>
                         </div>
                     </div>

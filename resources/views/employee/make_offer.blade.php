@@ -58,12 +58,10 @@
 
                             <div class="py-8
                                     px-4">
-                                <a href="{{ route('employee.offer.store', $request_id) }}">
-                                    <button
-                                        class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
-                                        Save
-                                    </button>
-                                </a>
+                                <button
+                                    class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold  py-2 px-6 rounded">
+                                    Save
+                                </button>
                             </div>
                         </div>
                     </div>
