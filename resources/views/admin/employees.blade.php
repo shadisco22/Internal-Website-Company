@@ -42,7 +42,7 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="fname" name='fname' type="text" placeholder="Jane">
+                                    id="fname" name='fname' type="text" placeholder="Jane" required>
                             </div>
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -51,7 +51,7 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="lname" name="lname" type="text" placeholder="Doe">
+                                    id="lname" name="lname" type="text" placeholder="Doe" required>
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -62,7 +62,8 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="p_email" name="p_email" type="email" placeholder="personal@example.com">
+                                    id="p_email" name="p_email" type="email" placeholder="personal@example.com"
+                                    required>
                                 <p class="text-gray-600 text-xs italic">employee personal email </p>
                             </div>
                         </div>
@@ -74,7 +75,8 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="email" name="email" type="email" placeholder="exaple@company.com">
+                                    id="email" name="email" type="email" placeholder="exaple@company.com"
+                                    required>
                                 <p class="text-gray-600 text-xs italic">employee company email </p>
                             </div>
                         </div>
@@ -86,7 +88,8 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="password" name="password" type="password" placeholder="******************">
+                                    id="password" name="password" type="password" placeholder="******************"
+                                    required>
                                 <p class="text-gray-600 text-xs italic">Please be careful </p>
                             </div>
                         </div>
@@ -217,17 +220,18 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="address" name='address' type="text" placeholder="Governorate - City">
+                                    id="address" name='address' type="text" placeholder="Governorate - City"
+                                    required>
                             </div>
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-4"
-                                    for="phonenumber">
+                                    for="phonenumber" required>
                                     Phone Number
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="phonenumber" name='phonenumber' type="text"
-                                    placeholder="+963 9** *** ***">
+                                    placeholder="+963 9** *** ***" required>
                             </div>
                         </div>
 
@@ -310,7 +314,7 @@
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="title" name='title' type="text"
-                                    placeholder="Human resource information specialist">
+                                    placeholder="Human resource information specialist" required>
                             </div>
                             <div class="w-full md:w-1/2 px-3">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -319,7 +323,7 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="salary" name="salary" type="text" placeholder="300,000 SP">
+                                    id="salary" name="salary" type="text" placeholder="300,000 SP" required>
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3 mb-6">
@@ -331,7 +335,8 @@
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="duties" name="duties" type="text"
-                                    placeholder="collecting employee data and compiling reports for department leaders">
+                                    placeholder="collecting employee data and compiling reports for department leaders"
+                                    required>
                             </div>
                         </div>
                         <div class="md:flex md:items-center">

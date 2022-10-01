@@ -21,7 +21,8 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="request" name='request_name' type="text" placeholder="Enter Your Request">
+                                    id="request" name='request_name' type="text" placeholder="Enter Your Request"
+                                    required>
                             </div>
                             <div class="w-full md:w-1/2 px-2 mb-8 md:mb-2">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -30,7 +31,7 @@
                                 </label>
                                 <textarea
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="description" name="description" placeholder="" rows="5" col="5"></textarea>
+                                    id="description" name="description" placeholder="" rows="5" col="5" required></textarea>
                             </div>
                             <div class="w-full md:w-1/2 px-2 mb-8 md:mb-2">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -39,7 +40,7 @@
                                 </label>
                                 <input
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                                    id="quantity" name="quantity" type="text">
+                                    id="quantity" name="quantity" type="text" required>
                             </div>
                             <div class="py-8
                                     px-4">

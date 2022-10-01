@@ -92,7 +92,7 @@
                                         Offers
                                     </label>
                                     @foreach ($offers as $offer)
-                                        <input type='radio' name='offer_id' value='{{ $offer->id }}'>
+                                        <input required type='radio' name='offer_id' value='{{ $offer->id }}'>
                                         Offer: {{ $offer->offer }} | Price : {{ $offer->price }} <br>
                                     @endforeach
 
