@@ -185,19 +185,57 @@ class NotificationController extends Controller
     public function dismiss($id)
     {
         Notification::where('id', '=', $id)->update(['seen' => '1']);
-        req::where('id', '=', Notification::all()->where('id', '=', $id)->value('request_id'))->update(['status' => 'dismissed by manager']);
+        $type = Notification::where('id', '=', $id)->value('type');
+        if ($type == 'R') {
+            req::where('id', '=', Notification::all()->where('id', '=', $id)->value('request_id'))->update(['status' => 'dismissed by manager']);
 
-        $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
-        $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
 
-        $noti_to_emp = new Notification();
-        $noti_to_emp->sender_emp_id = Auth::user()->id;
-        $noti_to_emp->receiver_emp_id = $sender_emp_id;
-        $noti_to_emp->request_id = $request_id;
+            $noti_to_emp = new Notification();
+            $noti_to_emp->sender_emp_id = Auth::user()->id;
+            $noti_to_emp->receiver_emp_id = $sender_emp_id;
+            $noti_to_emp->request_id = $request_id;
 
-        $noti_to_emp->type = 'MSGDISSMISS';
-        $noti_to_emp->save();
+            $noti_to_emp->type = 'MSGDISSMISS';
+            $noti_to_emp->save();
+        } elseif ($type == 'RTFO') {
+            req::where('id', '=', Notification::all()->where('id', '=', $id)->value('request_id'))->update(['status' => 'dismissed by manager']);
 
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+
+            $noti_to_emp = new Notification();
+            $noti_to_emp->sender_emp_id = Auth::user()->id;
+            $noti_to_emp->receiver_emp_id = $sender_emp_id;
+            $noti_to_emp->request_id = $request_id;
+
+            $noti_to_emp->type = 'MSG_OFFER_DISSMISS';
+            $noti_to_emp->save();
+        } else {
+            req::where('id', '=', Notification::all()->where('id', '=', $id)->value('request_id'))->update(['status' => 'dismissed by manager']);
+
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
+
+            $noti_to_manager = new Notification();
+            $noti_to_manager->sender_emp_id = Auth::user()->id;
+            $noti_to_manager->receiver_emp_id = $sender_emp_id;
+            $noti_to_manager->request_id = $request_id;
+
+            $noti_to_manager->type = 'MSG_RECEIPT_DISSMISS';
+            $noti_to_manager->save();
+
+            $accept_emp_id = req::all()->where('id', '=', $request_id)->value('accept_emp_id');
+
+            $noti_to_emp = new Notification();
+            $noti_to_emp->sender_emp_id = Auth::user()->id;
+            $noti_to_emp->receiver_emp_id = $accept_emp_id;
+            $noti_to_emp->request_id = $request_id;
+
+            $noti_to_emp->type = 'MSG_RECEIPT_DISSMISS';
+            $noti_to_emp->save();
+        }
         $role = Auth::user()->role;
         return redirect()->route($role . '.dashboard');
     }
@@ -212,6 +250,9 @@ class NotificationController extends Controller
      */
     public function approve($id, Request $request)
     {
+        if ($request->input('action') == 'dismiss') {
+            return redirect()->route('manager.notification.details.dismiss', $id);
+        }
         Notification::where('id', '=', $id)->update(['seen' => '1']);
 
         $type = Notification::where('id', '=', $id)->value('type');
@@ -249,6 +290,16 @@ class NotificationController extends Controller
             $noti->request_id = $request_id;
             $noti->type = 'AA';
             $noti->save();
+
+
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $noti_to_emp = new Notification();
+            $noti_to_emp->sender_emp_id = Auth::user()->id;
+            $noti_to_emp->receiver_emp_id = $sender_emp_id;
+            $noti_to_emp->request_id = $request_id;
+
+            $noti_to_emp->type = 'MSG_OFFER_APPROVE';
+            $noti_to_emp->save();
         } else {
             $request_id = Notification::all()->where('id', '=', $id)->value('request_id');
             $accept_emp_id = req::all()->where('id', '=', $request_id)->value('accept_emp_id');
@@ -263,6 +314,24 @@ class NotificationController extends Controller
             $receipte->total_price = intval($quantity) * intval($price);
 
             $receipte->save();
+
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $noti_to_manager = new Notification();
+            $noti_to_manager->sender_emp_id = Auth::user()->id;
+            $noti_to_manager->receiver_emp_id = $sender_emp_id;
+            $noti_to_manager->request_id = $request_id;
+
+            $noti_to_manager->type = 'MSG_RECEIPT_APPROVE';
+            $noti_to_manager->save();
+
+            $sender_emp_id = Notification::all()->where('id', '=', $id)->value('sender_emp_id');
+            $noti_to_emp = new Notification();
+            $noti_to_emp->sender_emp_id = Auth::user()->id;
+            $noti_to_emp->receiver_emp_id = $accept_emp_id;
+            $noti_to_emp->request_id = $request_id;
+
+            $noti_to_emp->type = 'MSG_RECEIPT_APPROVE';
+            $noti_to_emp->save();
         }
         $role = Auth::user()->role;
         return redirect()->route($role . '.dashboard');
