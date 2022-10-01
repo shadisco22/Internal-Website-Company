@@ -55,7 +55,43 @@
                                 class="float-left text-red-600 block px-6 py-2 w-full  hover:text-gray-500
                             focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 ">
 
-                                Your Manager Has Dissmissed Your Request For {{ $req->value('request') }}
+                                Your Manager Has Dismissed Your Request For {{ $req->value('request') }}
+                                <a href="{{ route('employee.mark_as_read', $not->id) }}"
+                                    class="float-right text-blue-800 ">Mark As Read</a>
+                            </p>
+                        </div>
+                    @elseif($not->type == 'MSG_RECEIPT_APPROVE')
+                        @php
+                            $req = $requests->where('id', '=', $not->request_id);
+                            $offer = $offers->where('req_id', '=', $req->value('id'));
+                        @endphp
+                        <div class="flow-root ">
+                            <p
+                                class="float-left text-green-600 block px-6 py-2 w-full  hover:text-gray-500
+                            focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 ">
+
+                                Manager Of Accounting Dep. Has Accepted Your Manager`s Request To Let You Fullfill Your
+                                Order
+                                {{ $req->value('request') }}
+                                With Offer {{ $offer->value('offer') }} & Price {{ $offer->value('price') }}
+                                <a href="{{ route('employee.mark_as_read', $not->id) }}"
+                                    class="float-right text-blue-800 ">Mark As Read</a>
+                            </p>
+                        </div>
+                    @elseif($not->type == 'MSG_RECEIPT_DISSMISS')
+                        @php
+                            $req = $requests->where('id', '=', $not->request_id);
+                            $offer = $offers->where('req_id', '=', $req->value('id'));
+                        @endphp
+                        <div class="flow-root ">
+                            <p
+                                class="float-left text-red-600 block px-6 py-2 w-full  hover:text-gray-500
+                            focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 ">
+
+                                Manager Of Accounting Dep. Has Dismissed Your Manager`s Request To Let You Fullfill Your
+                                Order
+                                {{ $req->value('request') }}
+                                With Offer {{ $offer->value('offer') }} & Price {{ $offer->value('price') }}
                                 <a href="{{ route('employee.mark_as_read', $not->id) }}"
                                     class="float-right text-blue-800 ">Mark As Read</a>
                             </p>
@@ -70,6 +106,38 @@
                             focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 ">
 
                                 Your Manager Has Accepted Your Request For {{ $req->value('request') }}
+                                <a href="{{ route('employee.mark_as_read', $not->id) }}"
+                                    class="float-right text-blue-800 ">Mark As Read</a>
+                            </p>
+                        </div>
+                    @elseif($not->type == 'MSG_OFFER_APPROVE')
+                        @php
+                            $req = $requests->where('id', '=', $not->request_id);
+                            $offer = $offers->where('req_id', '=', $req->value('id'));
+                        @endphp
+                        <div class="flow-root ">
+                            <p
+                                class="float-left text-green-600 block px-6 py-2 w-full  hover:text-gray-500
+                            focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 ">
+
+                                Your Manager Has Accepted Your Request To Fullfill Order {{ $req->value('request') }}
+                                With Offer {{ $offer->value('offer') }} & Price {{ $offer->value('price') }}
+                                <a href="{{ route('employee.mark_as_read', $not->id) }}"
+                                    class="float-right text-blue-800 ">Mark As Read</a>
+                            </p>
+                        </div>
+                    @elseif($not->type == 'MSG_OFFER_DISSMISS')
+                        @php
+                            $req = $requests->where('id', '=', $not->request_id);
+                            $offer = $offers->where('req_id', '=', $req->value('id'));
+                        @endphp
+                        <div class="flow-root ">
+                            <p
+                                class="float-left text-red-600 block px-6 py-2 w-full  hover:text-gray-500
+                            focus:outline-none focus:ring-0 focus:bg-gray-200 focus:text-gray-600 transition duration-500 ">
+
+                                Your Manager Has Dismissed Your Request To Fullfill Order {{ $req->value('request') }}
+                                With Offer {{ $offer->value('offer') }} & Price {{ $offer->value('price') }}
                                 <a href="{{ route('employee.mark_as_read', $not->id) }}"
                                     class="float-right text-blue-800 ">Mark As Read</a>
                             </p>
